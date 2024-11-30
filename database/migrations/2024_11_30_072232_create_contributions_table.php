@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('contributions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('id')->primary()->unique();
+            $table->string('id')->primary()->unique()->default(Str::random(10));
             $table->string('projectID');
             $table->foreign('projectID')->references('id')->on('project')
                 ->onUpdate('cascade')

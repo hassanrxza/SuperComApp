@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('technologies', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('id')->primary()->unique();
+            $table->id();
             $table->string('technology')->unique();
             $table->timestamps();
         });

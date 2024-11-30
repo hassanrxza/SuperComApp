@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('project_technologies', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('id')->primary()->unique();
+            $table->string('id')->primary()->unique()->default(Str::random(10));
             $table->string('projectID');
             $table->foreign('projectID')->references('id')->on('project')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('technologyID');
-            $table->foreign('technologyID')->references('id')->on('technologies')
+            $table->foreignId('technologyID')->constrained('technologies')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('project', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('id')->primary()->unique();
+            $table->string('id')->primary()->unique()->default(Str::random(10));
             $table->string('repoID');
             $table->foreign('repoID')->references('id')->on('repositories')
                 ->onUpdate('cascade')
