@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project', function (Blueprint $table) {
+        Schema::create('repositories', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->string('id')->primary()->unique();
-            $table->foreign('repoID')->references('repositories')
+            $table->string('ownerID');
+            $table->foreign('ownerID')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('title');
-            $table->text('description');
-            $table->enum('difficulty', ['easy', 'medium', 'hard'])->default('medium');
-            $table->text('contrib_guidelines')->nullable();
+            $table->string('repoName');
+            $table->text('repoURI');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project');
+        Schema::dropIfExists('repositories');
     }
 };

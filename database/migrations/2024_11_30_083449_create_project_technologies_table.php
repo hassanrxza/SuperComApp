@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_technologies', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->string('id')->primary()->unique();
-            $table->foreign('projectID')->references('project')
+            $table->string('projectID');
+            $table->foreign('projectID')->references('id')->on('project')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('technologyID')->references('technologies')
+            $table->string('technologyID');
+            $table->foreign('technologyID')->references('id')->on('technologies')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
