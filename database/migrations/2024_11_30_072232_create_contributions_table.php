@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contributions', function (Blueprint $table) {
-            $table->string('id')->primary()->unique();
-            $table->foreign('projectID')->references('project')
+            $table->engine = 'InnoDB';
+            $table->string('id')->primary()->unique()->default(Str::random(10));
+            $table->string('projectID');
+            $table->foreign('projectID')->references('id')->on('project')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('userID')->references('users')
+            $table->string('userID');
+            $table->foreign('userID')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending'); // Request status

@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_technologies', function (Blueprint $table) {
+        Schema::create('project', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->string('id')->primary()->unique()->default(Str::random(10));
-            $table->string('userID');
-            $table->foreign('userID')->references('id')->on('users')
+            $table->string('repoID');
+            $table->foreign('repoID')->references('id')->on('repositories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('technologyID')->constrained('technologies')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->string('title');
+            $table->text('description');
+            $table->enum('difficulty', ['easy', 'medium', 'hard'])->default('medium');
+            $table->text('contrib_guidelines')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_technologies');
+        Schema::dropIfExists('project');
     }
 };
