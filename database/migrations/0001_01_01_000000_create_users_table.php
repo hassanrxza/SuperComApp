@@ -16,12 +16,15 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->string('id')->unique()->primary()->default(Str::random(10));
             $table->string('name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->binary('image')->nullable();
             $table->string('expertize')->nullable();
             $table->enum('experience_level', ['Beginner', 'Intermediate', 'Expert'])->default('Intermediate')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('github_id');
+            $table->string('github_token');
             $table->rememberToken();
             $table->timestamps();
         });
