@@ -16,10 +16,6 @@ Route::get('/', function () {
 Route::get('/auth/github/redirect', [ProviderController::class, 'redirect']);              // Github OAuth redirect route
 Route::get('/auth/github/callback', [ProviderController::class, 'callback']);               // Github OAuth accept route
 
-Route::get('/dashboard', [RepositoryController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard');
-
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
@@ -30,7 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/dashboard', [RepositoryController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 Route::resource('/project', ProjectController::class);
 
 require __DIR__.'/auth.php';
